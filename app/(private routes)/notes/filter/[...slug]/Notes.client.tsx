@@ -59,11 +59,13 @@ export default function NotesClient({ tag }: Props) {
       <div className={css.app}>
         <header className={css.toolbar}>
           <SearchBox searchQuery={query} onChange={handleChange} />
-          <Pagination
-            totalPages={totalPages}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-          />
+          {data && data.notes.length > 0 && (
+              <Pagination
+                totalPages={totalPages}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+              />
+            )}
           {
             <Link href="/notes/action/create" className={css.button}>
               Create note +
