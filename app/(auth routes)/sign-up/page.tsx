@@ -1,35 +1,42 @@
 'use client';
 
 import css from './SignUpPage.module.css';
-import { register } from '@/lib/api/clientApi';
+import { register, RegisterRequest } from '@/lib/api/clientApi';
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { isAxiosError } from 'axios';
 
 function SignUp() {
   const router = useRouter();
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState('');
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setError(null);
-
-    const formData = new FormData(e.currentTarget);
-    const email = formData.get('email') as string;
-    const password = formData.get('password') as string;
-
+  const handleSubmit = async (formData: FormData) => {
     try {
-      await register({ email, password });
-      router.push('/profile');
+      const formValues = Object.fromEntries(formData) as RegisterRequest;
+      const res = await register(formValues);
+      if (res) {
+        router.push('/profile');
+      } else {
+        setError('Invalid email or password');
+      }
     } catch (error) {
-      console.log(error);
+      if (isAxiosError(error)) {
+        setError(
+          error.response?.data?.error ??
+            error.message ??
+            'Oops.. something went wrong'
+        );
+      } else {
+        setError('Oops.. something went wrong');
+      }
     }
   };
 
   return (
     <main className={css.mainContent}>
       <h1 className={css.formTitle}>Sign Up</h1>
-      <form onSubmit={handleSubmit} className={css.form}>
+      <form action={handleSubmit} className={css.form}>
         <div className={css.formGroup}>
           <label htmlFor="email">Email</label>
           <input
