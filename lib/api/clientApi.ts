@@ -1,21 +1,33 @@
-import api from '@/lib/api/api';
+import nextServer from '@/lib/api/api';
 
 import { User } from '@/types/user';
 
 // register
-export async function register(payload: {
+export type RegisterRequest = {
   email: string;
   password: string;
-}): Promise<User> {
-  const { data } = await api.post<User>("/auth/register", payload);
-  return data;
+}
+
+export const register = async (data: RegisterRequest) => {
+  const res = await nextServer.post<User>("/auth/register", data);
+  return res.data;
+}
+
+// login
+export type LoginRequest = {
+  email: string;
+  password: string;
+}
+
+export const login = async (data: LoginRequest) => {
+  const res = await nextServer.post<User>("/auth/login", data);
+  return res.data;
 }
 
 // fetchNotes
 // fetchNoteById
 // createNote
 // deleteNotes
-// login
 // logout
 // checkSession
 // getMe
