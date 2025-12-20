@@ -5,7 +5,6 @@ import {
 } from '@tanstack/react-query';
 import { Metadata } from 'next';
 import { fetchNotes, fetchNoteById } from '@/lib/api';
-// import NotesClient from '../filter/[...slug]/Notes.client';
 import NoteDetailsClient from './NoteDetails.client';
 
 type MetadataProps = {
@@ -28,7 +27,7 @@ export async function generateMetadata({ params }: MetadataProps): Promise<Metad
       url: `/notes/${id}`,
       images: [
         {
-          url: 'https://08-zustand-kappa-opal.vercel.app/notehub-og-meta.jpg',
+          url: 'https://09-auth-five-nu.vercel.app/notehub-og-meta.jpg',
           alt: 'NoteHub – modern note-taking app',
           width: 1200,
           height: 630

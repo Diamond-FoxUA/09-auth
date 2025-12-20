@@ -17,10 +17,10 @@ export const metadata: Metadata = {
     title: 'NoteHub',
     description:
       'Create, tag, search, and save drafts of your notes with NoteHub.',
-    url: 'https://08-zustand-kappa-opal.vercel.app/',
+    url: 'https://09-auth-five-nu.vercel.app/',
     images: [
       {
-        url: 'https://08-zustand-kappa-opal.vercel.app/notehub-og-meta.jpg',
+        url: 'https://09-auth-five-nu.vercel.app/notehub-og-meta.jpg',
         alt: 'NoteHub – modern note-taking app',
         width: 1200,
         height: 630,
