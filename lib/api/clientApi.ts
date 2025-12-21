@@ -24,11 +24,15 @@ export const login = async (data: LoginRequest) => {
   return res.data;
 }
 
+// logout
+export const logout = async (): Promise<void> => {
+  await nextServer.post('auth/logout');
+};
+
 // fetchNotes
 // fetchNoteById
 // createNote
 // deleteNotes
-// logout
 // checkSession
 // getMe
 // updateMe
