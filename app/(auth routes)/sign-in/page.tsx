@@ -1,5 +1,6 @@
 'use client';
 import css from './SignInPage.module.css';
+import { useAuthStore } from '@/lib/store/authStore';
 
 import { LoginRequest, login } from '@/lib/api/clientApi';
 
@@ -10,6 +11,7 @@ import { useState } from 'react';
 const SignIn = () => {
   const router = useRouter();
   const [error, setError] = useState('');
+  const setUser = useAuthStore(store => store.setUser);
 
   const handleSubmit = async (formData: FormData) => {
     try {
@@ -17,6 +19,7 @@ const SignIn = () => {
       const res = await login(formValues);
 
       if (res) {
+        setUser(res);
         router.push('/profile');
       } else {
         setError('Invalid email or password');

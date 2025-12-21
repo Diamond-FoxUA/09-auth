@@ -2,6 +2,7 @@
 
 import css from './SignUpPage.module.css';
 import { register, RegisterRequest } from '@/lib/api/clientApi';
+import { useAuthStore } from '@/lib/store/authStore';
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -10,12 +11,14 @@ import { isAxiosError } from 'axios';
 function SignUp() {
   const router = useRouter();
   const [error, setError] = useState('');
+  const setUser = useAuthStore(store => store.setUser);
 
   const handleSubmit = async (formData: FormData) => {
     try {
       const formValues = Object.fromEntries(formData) as RegisterRequest;
       const res = await register(formValues);
       if (res) {
+        setUser(res);
         router.push('/profile');
       } else {
         setError('Invalid email or password');
