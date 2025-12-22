@@ -24,8 +24,6 @@ export const metadata: Metadata = {
 };
 
 const Profile = () => {
-  const username = 'your_username';
-  const email = 'your_email@example.com';
 
   return (
     <main className={css.mainContent}>
@@ -39,15 +37,15 @@ const Profile = () => {
         <div className={css.avatarWrapper}>
           <Image
             className={css.avatar}
-            src="Avatar"
+            src="https://ac.goit.global/fullstack/react/default-avatar.jpg"
             alt="User Avatar"
             width={120}
             height={120}
           />
         </div>
         <div className={css.profileInfo}>
-          <p>Username: {username}</p>
-          <p>Email: {email}</p>
+          <p>Username: username</p>
+          <p>Email: email</p>
         </div>
       </div>
     </main>
