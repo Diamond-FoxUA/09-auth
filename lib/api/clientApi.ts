@@ -29,10 +29,14 @@ export const logout = async (): Promise<void> => {
   await nextServer.post('auth/logout');
 };
 
+// getMe
+export const getMe = async (): Promise<User> => {
+  const response = await nextServer.get<User>('/users/me');
+  return response.data;
+}
 // fetchNotes
 // fetchNoteById
 // createNote
 // deleteNotes
 // checkSession
-// getMe
 // updateMe
