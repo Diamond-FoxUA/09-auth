@@ -5,6 +5,7 @@ import './globals.css';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 import TanStackProvider from '../components/TanStackProvider/TanStackProvider';
+import { AuthProvider } from '@/components/AuthProvider/AuthProvider';
 
 export const metadata: Metadata = {
   title: 'NoteHub',
@@ -30,7 +31,7 @@ export const metadata: Metadata = {
 };
 
 export const roboto = Roboto({
-  weight: ['400','600', '700'],
+  weight: ['400', '600', '700'],
   style: 'normal',
   subsets: ['latin'],
   display: 'swap',
@@ -47,10 +48,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={roboto.className}>
         <TanStackProvider>
-          <Header />
-          <main>{children}</main>
-          <Footer />
-          {modal}
+          <AuthProvider>
+            <Header />
+            <main>{children}</main>
+            <Footer />
+            {modal}
+          </AuthProvider>
         </TanStackProvider>
       </body>
     </html>
