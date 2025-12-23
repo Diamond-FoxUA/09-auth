@@ -6,6 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { useAuthStore } from '@/lib/store/authStore';
 import { getMe } from '@/lib/api/clientApi';
+import { logout } from '@/lib/api/clientApi';
 const privateRoutes = ['/profile', '/notes'];
 
 type AuthProviderProps = {
@@ -37,7 +38,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   });
 
   useEffect(() => {
-    if (isPrivateRoute) return;
+    if (!isPrivateRoute) return;
 
     if (user) {
       setUser(user);
@@ -45,6 +46,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
 
     if (isError) {
+      logout();
       clearIsAuthenticated();
       router.replace('/sign-in');
     }
