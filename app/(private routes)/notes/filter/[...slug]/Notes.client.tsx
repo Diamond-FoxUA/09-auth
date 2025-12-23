@@ -6,7 +6,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import Link from 'next/link';
 
 import css from './Notes.module.css';
-import { fetchNotes } from '@/lib/api';
+import { fetchNotes } from '@/lib/api/clientApi';
 
 import NoteList from '@/components/NoteList/NoteList';
 import Pagination from '@/components/Pagination/Pagination';
