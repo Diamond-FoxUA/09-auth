@@ -1,5 +1,6 @@
 import { api } from '@/app/api/api';
 import type { Note, NewNote } from '@/types/note'
+import type { User } from '@/types/user';
 
 export interface NoteHttpResponse {
   notes: Note[];
@@ -40,5 +41,16 @@ export async function deleteNote(id: string): Promise<Note> {
   return response.data;
 }
 
-// getMe
-// checkSession.
+export async function getMe(): Promise<User> {
+  const response = await api.get<User>('/users/me');
+  return response.data;
+}
+
+export async function checkSession(): Promise<boolean> {
+  try {
+    await api.get('/auth/session');
+    return true; 
+  } catch {
+    return false;
+  }
+}
