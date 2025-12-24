@@ -5,7 +5,7 @@ import './globals.css';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 import TanStackProvider from '../components/TanStackProvider/TanStackProvider';
-import { AuthProvider } from '@/components/AuthProvider/AuthProvider';
+import AuthProvider from '@/components/AuthProvider/AuthProvider';
 
 export const metadata: Metadata = {
   title: 'NoteHub',

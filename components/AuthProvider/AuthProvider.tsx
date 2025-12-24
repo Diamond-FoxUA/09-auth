@@ -1,60 +1,34 @@
 'use client';
 
-import { ReactNode, useEffect } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
-import { useQuery } from '@tanstack/react-query';
+import { checkSession, getMe } from "@/lib/api/clientApi";
+import { useAuthStore } from "@/lib/store/authStore";
 
-import { useAuthStore } from '@/lib/store/authStore';
-import { getMe } from '@/lib/api/clientApi';
-import { logout } from '@/lib/api/clientApi';
-const privateRoutes = ['/profile', '/notes'];
+import { useEffect } from "react";
 
-type AuthProviderProps = {
-  children: ReactNode;
+type Props = {
+  children: React.ReactNode;
 };
 
-export function AuthProvider({ children }: AuthProviderProps) {
-  const pathname = usePathname();
-  const router = useRouter();
-
+const AuthProvider = ({ children }: Props) => {
   const setUser = useAuthStore(store => store.setUser);
-  const clearIsAuthenticated = useAuthStore(
-    store => store.clearIsAuthenticated
-  );
-
-  const isPrivateRoute = privateRoutes.some(route =>
-    pathname.startsWith(route)
-  );
-
-  const {
-    data: user,
-    isLoading,
-    isError,
-  } = useQuery({
-    queryKey: ['me'],
-    queryFn: getMe,
-    enabled: isPrivateRoute,
-    retry: false,
-  });
+  const clearIsAuthenticated = useAuthStore(store => store.clearIsAuthenticated);
 
   useEffect(() => {
-    if (!isPrivateRoute) return;
+    const fetchUser = async () => {
+      const isAuthenticated = await checkSession();
+      if (isAuthenticated) {
+        const user = await getMe();
+        if (user) {
+          setUser(user);
+        } else {
+          clearIsAuthenticated();
+        }
+      }
+    };
+    fetchUser();
+  }, [setUser, clearIsAuthenticated]);
 
-    if (user) {
-      setUser(user);
-      return;
-    }
+  return children;
+};
 
-    if (isError) {
-      logout();
-      clearIsAuthenticated();
-      router.replace('/sign-in');
-    }
-  }, [isPrivateRoute, user, isError, setUser, clearIsAuthenticated, router]);
-
-  if (isPrivateRoute && isLoading) {
-    return <p>Loading...</p>;
-  }
-
-  return <>{children}</>;
-}
+export default AuthProvider;

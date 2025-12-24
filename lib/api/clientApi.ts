@@ -24,8 +24,7 @@ export async function login(data: LoginRequest) {
 }
 
 export async function logout(): Promise<void> {
-  const response = await nextServer.post('auth/logout');
-  return response.data;
+  await nextServer.post('/auth/logout');
 }
 
 export async function getMe(): Promise<User> {

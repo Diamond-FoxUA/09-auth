@@ -6,7 +6,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 
 import type { NewNote } from '@/types/note';
-import { createNote } from '@/lib/api';
+import { createNote } from '@/lib/api/clientApi';
 import { useNoteDraft } from '@/lib/store/noteStore';
 
 export default function NoteForm() {
