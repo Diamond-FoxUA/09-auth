@@ -5,39 +5,35 @@ import { updateMe } from '@/lib/api/clientApi';
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 const EditProfilePage = () => {
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const user = useAuthStore(store => store.user);
   const setUser = useAuthStore(store => store.setUser);
 
-  const [isPending, setIsPending] = useState(false);
+  const { mutate, isPending } = useMutation({
+    mutationFn: updateMe,
+    onSuccess: updatedUser => {
+      setUser(updatedUser);
+      queryClient.invalidateQueries({ queryKey: ['me'] });
+      router.push('/profile');
+    },
+  });
 
   if (!user) {
     return <p>Loading profile...</p>;
   }
 
   const handleSubmit = async (formData: FormData) => {
-    const values = Object.fromEntries(formData) as { username?: string };
-    
-    if (!values.username?.trim()) return;
+    const username = formData.get('username') as string;
 
-    setIsPending(true);
-    try {
-      const updatedUser = await updateMe({
-        username: values.username,
-      });
-
-      setUser(updatedUser);
-      router.push('/profile');
-    } finally {
-      setIsPending(false);
-    }
-    
+    if (!username.trim()) return;
+    mutate({ username });
   };
-      
+
   return (
     <main className={css.mainContent}>
       <div className={css.profileCard}>
@@ -51,23 +47,34 @@ const EditProfilePage = () => {
           height={120}
         />
 
-        <form action={handleSubmit} className={css.profileInfo}>
+        <form
+          onSubmit={e => {
+            e.preventDefault();
+            handleSubmit(new FormData(e.currentTarget));
+          }}
+          className={css.profileInfo}
+        >
           <div className={css.usernameWrapper}>
             <label htmlFor="username">Username: </label>
-            <input type="text" id="username" className={css.input} />
+            <input
+              type="text"
+              id="username"
+              name="username"
+              className={css.input}
+              defaultValue={user.username ?? ''}
+            />
           </div>
 
           <p>Email: {user.email}</p>
 
           <div className={css.actions}>
-            <button type="submit" className={css.saveButton}>
+            <button type="submit" className={css.saveButton} disabled={isPending}>
               Save
             </button>
             <button
-              onClick={() => router.push('/profile')}
+              onClick={() => router.back()}
               type="button"
               className={css.cancelButton}
-              disabled={isPending}
             >
               Cancel
             </button>
