@@ -64,7 +64,7 @@ const SignIn = () => {
           />
         </div>
 
-        <div className={css.formGroup}>
+        <div className={css.actions}>
           <button type="submit" className={css.submitButton}>
             Log In
           </button>
