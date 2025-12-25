@@ -18,7 +18,9 @@ const EditProfilePage = () => {
     mutationFn: updateMe,
     onSuccess: updatedUser => {
       setUser(updatedUser);
-      queryClient.invalidateQueries({ queryKey: ['me'] });
+      queryClient.invalidateQueries({
+        queryKey: ['me'],
+      });
       router.push('/profile');
     },
   });
@@ -30,7 +32,7 @@ const EditProfilePage = () => {
   const handleSubmit = async (formData: FormData) => {
     const username = formData.get('username') as string;
 
-    if (!username.trim()) return;
+    if (!username || !username.trim()) return;
     mutate({ username });
   };
 
@@ -68,7 +70,11 @@ const EditProfilePage = () => {
           <p>Email: {user.email}</p>
 
           <div className={css.actions}>
-            <button type="submit" className={css.saveButton} disabled={isPending}>
+            <button
+              type="submit"
+              className={css.saveButton}
+              disabled={isPending}
+            >
               Save
             </button>
             <button

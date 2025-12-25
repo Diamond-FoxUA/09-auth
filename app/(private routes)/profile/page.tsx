@@ -5,26 +5,25 @@ import Image from 'next/image';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Profile page",
-  description: "User profile page with personal information",
-  metadataBase: "https://09-auth-five-nu.vercel.app/",
+  title: 'Profile page',
+  description: 'User profile page with personal information',
+  metadataBase: 'https://09-auth-five-nu.vercel.app/',
   openGraph: {
-    title: "Profile page",
-    description: "User profile page with personal information",
-    url: "https://09-auth-five-nu.vercel.app/",
+    title: 'Profile page',
+    description: 'User profile page with personal information',
+    url: 'https://09-auth-five-nu.vercel.app/',
     images: [
       {
-        url: "https://09-auth-five-nu.vercel.app/notehub-og-meta.jpg",
+        url: 'https://09-auth-five-nu.vercel.app/notehub-og-meta.jpg',
         width: 1200,
         height: 630,
-        alt: "Notehub - Profile page"
-      }
-    ]
-  }
+        alt: 'Notehub - Profile page',
+      },
+    ],
+  },
 };
 
-const Profile = () => {
-
+const Profile = async () => {
   return (
     <main className={css.mainContent}>
       <div className={css.profileCard}>
@@ -44,8 +43,8 @@ const Profile = () => {
           />
         </div>
         <div className={css.profileInfo}>
-          <p>Username: username</p>
-          <p>Email: email</p>
+          <p>Username: user_name</p>
+          <p>Email: user_email</p>
         </div>
       </div>
     </main>

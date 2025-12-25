@@ -42,7 +42,11 @@ export async function deleteNote(id: string): Promise<Note> {
 }
 
 export async function getMe(): Promise<User> {
-  const response = await api.get<User>('/users/me');
+  const response = await api.get<User>('/users/me', {
+    headers: {
+      Cookie: cookieStore.toString(),
+    }
+  });
   return response.data;
 }
 
