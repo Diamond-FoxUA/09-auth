@@ -8,18 +8,19 @@ import { fetchNoteById } from '@/lib/api/serverApi';
 import NoteDetailsClient from './NoteDetails.client';
 
 type MetadataProps = {
-  params: Promise<{ id: string }>;
+  params: {
+    id: string;
+  };
 };
 
 type NotesProps = {
   params: {
-    id: string
-  }
+    id: string;
+  };
 };
 
 export async function generateMetadata({ params }: MetadataProps): Promise<Metadata> {
-  const { id } = await params;
-  const note = await fetchNoteById(id);
+  const note = await fetchNoteById(params.id);
 
   const title = `Note: ${note.title}`;
   const description = note.content.slice(0, 30);
@@ -30,30 +31,30 @@ export async function generateMetadata({ params }: MetadataProps): Promise<Metad
     openGraph: {
       title,
       description,
-      url: `/notes/${id}`,
+      url: `/notes/${params.id}`,
       images: [
         {
           url: 'https://09-auth-five-nu.vercel.app/notehub-og-meta.jpg',
           alt: 'NoteHub – modern note-taking app',
           width: 1200,
-          height: 630
-        }
-      ]
-    }
+          height: 630,
+        },
+      ],
+    },
   };
 }
 
-export default async function Notes({params}: NotesProps) {
+export default async function Notes({ params }: NotesProps) {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: ['notes', params.id],
+    queryKey: ['note', params.id],
     queryFn: () => fetchNoteById(params.id),
   });
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <NoteDetailsClient id={params.id}/>
+      <NoteDetailsClient id={params.id} />
     </HydrationBoundary>
   );
 }
