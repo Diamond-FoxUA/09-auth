@@ -84,11 +84,7 @@ export async function deleteNote(id: string): Promise<Note> {
   return response.data;
 }
 
-export async function checkSession(): Promise<boolean> {
-  try {
-    await nextServer.get('/auth/session');
-    return true;
-  } catch {
-    return false;
-  }
+export async function checkSession(): Promise<User> {
+  const response = await nextServer.get('/users/me');
+  return response.data;
 }

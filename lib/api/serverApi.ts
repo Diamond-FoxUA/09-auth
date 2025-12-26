@@ -61,11 +61,7 @@ export async function getMe(): Promise<User> {
   return response.data;
 }
 
-export async function checkSession(): Promise<boolean> {
-  try {
-    await api.get('/auth/session');
-    return true;
-  } catch {
-    return false;
-  }
+export async function checkSession(): Promise<User> {
+  const response = await api.get<User>('/users/me');
+  return response.data;
 }
