@@ -1,7 +1,6 @@
 import { api } from '@/app/api/api';
-import type { Note, NewNote } from '@/types/note'
+import type { Note, NewNote } from '@/types/note';
 import type { User } from '@/types/user';
-import { cookies } from 'next/headers';
 
 export interface NoteHttpResponse {
   notes: Note[];
@@ -14,16 +13,20 @@ export interface FetchNotesProps {
   tag?: string | null;
 }
 
-export async function fetchNotes({ query, page = 1, tag }: FetchNotesProps): Promise<NoteHttpResponse> {
+export async function fetchNotes({
+  query,
+  page = 1,
+  tag,
+}: FetchNotesProps): Promise<NoteHttpResponse> {
   const response = await api.get<NoteHttpResponse>('/notes', {
     params: {
       search: query,
       page,
       perPage: 12,
-      ...(tag ? { tag } : {})
-    }
+      ...(tag ? { tag } : {}),
+    },
   });
-  
+
   return response.data;
 }
 
@@ -43,19 +46,14 @@ export async function deleteNote(id: string): Promise<Note> {
 }
 
 export async function getMe(): Promise<User> {
-  const cookieStore = cookies();
-  const response = await api.get<User>('/users/me', {
-    headers: {
-      Cookie: cookieStore.toString(),
-    }
-  });
+  const response = await api.get<User>('/users/me');
   return response.data;
 }
 
 export async function checkSession(): Promise<boolean> {
   try {
     await api.get('/auth/session');
-    return true; 
+    return true;
   } catch {
     return false;
   }
