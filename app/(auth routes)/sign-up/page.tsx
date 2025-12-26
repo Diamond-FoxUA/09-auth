@@ -44,7 +44,7 @@ function SignUp() {
           <label htmlFor="email">Email</label>
           <input
             id="email"
-            type="text"
+            type="email"
             name="email"
             className={css.input}
             required
@@ -55,7 +55,7 @@ function SignUp() {
           <label htmlFor="password">Password</label>
           <input
             id="password"
-            type="text"
+            type="password"
             name="password"
             className={css.input}
             required
