@@ -4,6 +4,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Metadata } from 'next';
 
+import { getMe } from '@/lib/api/serverApi';
+
 export const metadata: Metadata = {
   title: 'Profile page',
   description: 'User profile page with personal information',
@@ -24,6 +26,8 @@ export const metadata: Metadata = {
 };
 
 const Profile = async () => {
+  const user = await getMe();
+
   return (
     <main className={css.mainContent}>
       <div className={css.profileCard}>
@@ -43,8 +47,8 @@ const Profile = async () => {
           />
         </div>
         <div className={css.profileInfo}>
-          <p>Username: user_name</p>
-          <p>Email: user_email</p>
+          <p>Username: {user.username}</p>
+          <p>Email: {user.email}</p>
         </div>
       </div>
     </main>
