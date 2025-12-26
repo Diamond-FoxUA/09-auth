@@ -1,6 +1,7 @@
 import { api } from '@/app/api/api';
 import type { Note, NewNote } from '@/types/note'
 import type { User } from '@/types/user';
+import { cookies } from 'next/headers';
 
 export interface NoteHttpResponse {
   notes: Note[];
@@ -42,6 +43,7 @@ export async function deleteNote(id: string): Promise<Note> {
 }
 
 export async function getMe(): Promise<User> {
+  const cookieStore = cookies();
   const response = await api.get<User>('/users/me', {
     headers: {
       Cookie: cookieStore.toString(),
