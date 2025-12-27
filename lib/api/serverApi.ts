@@ -19,7 +19,11 @@ export async function fetchNotes({
   page = 1,
   tag,
 }: FetchNotesProps): Promise<NoteHttpResponse> {
+  const cookieStore = cookies();
   const response = await api.get<NoteHttpResponse>('/notes', {
+    headers: { 
+      Cookie: cookieStore.toString(),
+    },
     params: {
       search: query,
       page,
@@ -38,30 +42,44 @@ export async function fetchNoteById(id: string): Promise<Note> {
       Cookie: (await cookieStore).toString(),
     },
   });
+  
   return response.data;
 }
 
 export async function createNote(newNote: NewNote): Promise<Note> {
-  const response = await api.post<Note>('/notes', newNote);
+  const cookieStore = await cookies();
+  const response = await api.post<Note>('/notes', newNote, {
+    headers: {
+      Cookie: cookieStore.toString(),
+    },
+  });
+
   return response.data;
 }
 
 export async function deleteNote(id: string): Promise<Note> {
-  const response = await api.delete<Note>(`/notes/${id}`);
+  const cookieStore = await cookies();
+  const response = await api.delete<Note>(`/notes/${id}`, {
+    headers: {
+      Cookie: cookieStore.toString(),
+    },
+  });
+
   return response.data;
 }
 
 export async function getMe(): Promise<User> {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const response = await api.get<User>('/users/me', {
     headers: {
-      Cookie: (await cookieStore).toString(),
+      Cookie: cookieStore.toString(),
     },
   });
+
   return response.data;
 }
 
 export async function checkSession(): Promise<User> {
-  const response = await api.get<User>('/users/me');
+  const response = await api.get<User>('/auth/session');
   return response.data;
 }
