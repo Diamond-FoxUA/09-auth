@@ -85,6 +85,6 @@ export async function deleteNote(id: string): Promise<Note> {
 }
 
 export async function checkSession(): Promise<User> {
-  const response = await nextServer.get('/users/me');
+  const response = await nextServer.get('/auth/session');
   return response.data;
 }
