@@ -40,7 +40,7 @@ const Profile = async () => {
         <div className={css.avatarWrapper}>
           <Image
             className={css.avatar}
-            src="https://ac.goit.global/fullstack/react/default-avatar.jpg"
+            src={user.avatar}
             alt="User Avatar"
             width={120}
             height={120}
