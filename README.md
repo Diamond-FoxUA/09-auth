@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+📝 NoteHub
 
-## Getting Started
+Note-taking web application built with Next.js to practice App Router, authentication, and real-world routing patterns.
 
-First, run the development server:
+⸻
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+🚀 Live Demo
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+👉 [NoteHub](https://09-auth-five-nu.vercel.app)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+⸻
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+📌 About the Project
 
-## Learn More
+NoteHub is a solo learning project focused on mastering the core concepts of Next.js App Router, routing architecture, and authentication flow.
 
-To learn more about Next.js, take a look at the following resources:
+The project emphasizes routing logic, middleware, cookies-based sessions, metadata configuration, and access control rather than UI design (styles were provided as part of the assignment).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+A learning backend API is used to handle authentication and notes data.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+⸻
 
-## Deploy on Vercel
+🧩 Key Features
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+✔️ User authentication (login / register)
+✔️ Cookies-based session handling
+✔️ Public and private routes (Next.js Middleware)
+✔️ Notes CRUD functionality
+✔️ Forms handling and validation
+✔️ Route interception and navigation logic
+✔️ Loading and error states handling
+✔️ Page metadata configuration (SEO)
+✔️ Open Graph support for social sharing
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+⸻
+
+🛠️ Technologies Used
+	•	Next.js — App Router, Middleware, routing patterns
+	•	React — component-based UI
+	•	TypeScript — type safety
+	•	CSS Modules — scoped component styles
+	•	TanStack Query (React Query) — data fetching and caching
+	•	Axios / Fetch API — HTTP requests
+	•	Learning Backend API — authentication and notes management
+	•	Git & GitHub — version control
+	•	Vercel — deployment
+
+⸻
+
+🧠 What I Practiced
+	•	Structuring applications with Next.js App Router
+	•	Implementing route protection with Middleware
+	•	Working with cookies and authentication flow
+  •	Configuring metadata and Open Graph for SEO and social sharing
+	•	Handling forms and user input
+	•	Managing async data and application states
+	•	Understanding basic security patterns in Next.js apps
+
+⸻
+
+📫 Links
+
+🌐 Live Demo: https://09-auth-five-nu.vercel.app/
+🔗 Repository: https://github.com/Diamond-FoxUA/09-auth
+
+⸻
+
+👤 Author
+
+Dmytro Farbun
+Role: Frontend Developer
+
+| Backend API provided for learning purposes
